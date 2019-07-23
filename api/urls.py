@@ -1,6 +1,7 @@
-from django.urls import path, include
+# from django.urls import path, include
+from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import PostView,LoginView
+from .views import PostView,LoginView,UserView
 
 post_list = PostView.as_view({
     'post': 'create',
@@ -14,7 +15,8 @@ post_detail = PostView.as_view({
 })
 
 urlpatterns = format_suffix_patterns([
-    path('posts/', post_list, name='post_list'),
-    path('posts/<int:pk>/', post_detail, name='post_detail'),
-    path('auth/login/',LoginView.as_view(),name="login"),
+    url('posts/', post_list, name='post_list'),
+    url('posts/<int:pk>/', post_detail, name='post_detail'),
+    url('auth/login/', LoginView.as_view(), name="login"),
+    url("auth/user/", UserView.as_view(),name="user"),
 ])
